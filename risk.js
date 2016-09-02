@@ -6,7 +6,7 @@ var countryList = [] //list of all the country objects
 function Country(name){
   this.name = name //name of the country
   this.connectedTo = [] //connected countries
-  this.ownedBy = "" //player that owns the country (blank by default)
+  this.ownedBy; //player that owns the country (blank by default)
   this.population = 0 //how many units a player has there (0 by default)
   countryList[countryList.length] = this //adds country to the list
 
@@ -26,12 +26,17 @@ function Country(name){
     this.population+=int;
     if (this.population < 0){this.population = 0}
   }
+  this.giveTo = function(otherPlayer){
+    this.ownedBy = otherPlayer
+    otherPlayer.owns[otherPlayer.owns.length] = this
+  }
 }
 
 var playerList = []
 
 function Player(name){
   this.name = name
+  this.owns = []
   playerList[playerList.length] = this
 }
 
