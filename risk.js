@@ -15,6 +15,12 @@ function Country(name){
 			otherCountries[i].connectedTo[otherCountries[i].connectedTo.length]=this
 		}
 	}
+	this.connectOneWay = function(otherCountries){
+		for(i=0; i<otherCountries.length; i++){
+			this.connectedTo[this.connectedTo.length] = otherCountries[i]
+		}
+	}
+	
 }
 
 //adding some countries to test
