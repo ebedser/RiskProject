@@ -16,10 +16,15 @@ function Country(name){
 			otherCountries[i].connectedTo[otherCountries[i].connectedTo.length]=this
 		}
 	}
+
 	this.connect = function(otherCountries){ //preffered method of connecting
 		for(i=0; i<otherCountries.length; i++){
 			this.connectedTo[this.connectedTo.length] = otherCountries[i]
 		}
+	}
+	this.popMod = function(int){ //proper method for changing population
+		this.population+=int;
+		if (this.population < 0){this.population = 0}
 	}
 }
 
@@ -36,20 +41,8 @@ NewGuinea = new Country("New Guinea")
 WesternAustralia = new Country("Western Australia")
 EasternAustralia = new Country("Eastern Australia")
 
-//connecting countries to test
-Indonesia.connect([NewGuinea, WesternAustralia, EasternAustralia])
-
-console.log("Indonesia:")
-for(i=0; i< Indonesia.connectedTo.length;i++){
-	console.log(Indonesia.connectedTo[i].name)
-}
-console.log("New Guinea:")
-for(i=0; i< NewGuinea.connectedTo.length;i++){
-	console.log(NewGuinea.connectedTo[i].name)
-}
-
-//testing countryList
-console.log(countryList)
-//testing playerList
-Player1 = Player("Evan")
-console.log(playerList)
+//testing popMod
+Indonesia.popMod(5)
+console.log(Indonesia.population)
+Indonesia.popMod(-10)
+console.log(Indonesia.population)
