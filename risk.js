@@ -10,13 +10,13 @@ function Country(name){
 	this.population = 0 //how many units a player has there (0 by default)
 	countryList[countryList.length] = this //adds country to the list
 
-	this.connect = function(otherCountries){
+	this.connectBoth = function(otherCountries){ // standard connect preffered
 		for(i=0; i<otherCountries.length; i++){
 			this.connectedTo[this.connectedTo.length] = otherCountries[i]
 			otherCountries[i].connectedTo[otherCountries[i].connectedTo.length]=this
 		}
 	}
-	this.connectOneWay = function(otherCountries){
+	this.connect = function(otherCountries){ //preffered method of connecting
 		for(i=0; i<otherCountries.length; i++){
 			this.connectedTo[this.connectedTo.length] = otherCountries[i]
 		}
