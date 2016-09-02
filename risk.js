@@ -1,6 +1,7 @@
 //Evan Bedser
 //An attempt to recreate the classic game of risk with Javascript
-var countryList = []
+
+var countryList = [] //list of all the country objects
 
 function Country(name){
 	this.name = name //name of the country
@@ -20,7 +21,13 @@ function Country(name){
 			this.connectedTo[this.connectedTo.length] = otherCountries[i]
 		}
 	}
-	
+}
+
+var playerList = []
+
+function Player(name){
+	this.name = name
+	playerList[playerList.length] = this
 }
 
 //adding some countries to test
@@ -40,3 +47,9 @@ console.log("New Guinea:")
 for(i=0; i< NewGuinea.connectedTo.length;i++){
 	console.log(NewGuinea.connectedTo[i].name)
 }
+
+//testing countryList
+console.log(countryList)
+//testing playerList
+Player1 = Player("Evan")
+console.log(playerList)
