@@ -54,14 +54,41 @@ function Country(name){
       this.connectedTo[this.connectedTo.length] = otherCountries[i]
     }
   }
+
   this.popMod = function(int){ //proper method for changing population
     this.population+=int;
     if (this.population < 0){this.population = 0}
   }
+
   this.giveTo = function(otherPlayer){
     this.ownedBy = otherPlayer
     otherPlayer.owns[otherPlayer.owns.length] = this
   }
+
+  this.attack = function(defender, atkNum, defNum){
+    if(defender.ownedBy == this.ownedBy){return}//is it an opponents?
+    if(this.connectedTo.indexOf(defender) == -1){return} //is it connected?
+    if(atkNum > 3 || defNum > 2){return} //num of pop check
+    if(this.population < 2 || this.population < atkNum){return} //enough to attack
+    if(defender.population < defNum){return} //enough to defend with num given
+
+    atkDice = d6Sort(atkNum)
+    defDice = d6Sort(defNum)
+
+    if (atkDice.length >= defDice.length){
+      for(i=0; i < defDice.length; i++){
+        if(atkDice[i]>defDice[i]){defender.popMod(-1)}
+        else{this.popMod(-1)}
+      }
+    }
+    else{
+      for(i=0; i < atkDice.length; i++){
+        if(atkDice[i]>defDice[i]){defender.popMod(-1)}
+        else{this.popMod(-1)}
+      }
+    }
+  }
+
 }
 
 var playerList = []
@@ -76,8 +103,9 @@ function Player(name){
 //testing
 Indonesia = new Country("Indonesia")
 NewGuinea = new Country("New Guinea")
-Indonesia.connect(NewGuinea)
-NewGuinea.connect(Indonesia)
+Place = new Country("Place")
+Indonesia.connect([NewGuinea])
+NewGuinea.connect([Indonesia])
 
 deck1 = new Deck("x", "y", "z")
 deck1.shuffle()
@@ -89,3 +117,7 @@ Indonesia.giveTo(p1)
 Indonesia.popMod(5)
 NewGuinea.giveTo(p2)
 NewGuinea.popMod(5)
+
+Indonesia.attack(NewGuinea, 3, 2)
+console.log("Indonesia "+Indonesia.population)
+console.log("NewGuinea "+NewGuinea.population)
